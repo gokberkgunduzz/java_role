@@ -5,10 +5,14 @@
     java_jdk_vendor: "temurin"
   when: "java_jdk_vendor == 'adoptopenjdk'"
 
+- name: Java | Construct OS-specific variable file path
+  set_fact:
+    _os_specific_vars_file: "{{ java_jdk_vendor }}/{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml"
+
 - name: Java | Gather OS specific variables
   include_vars: "{{ item }}"
   with_first_found:
-    - "{{ java_jdk_vendor }}/{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml"
+    - "{{ _os_specific_vars_file }}"
 
 - name: Java | Gather architecture specific variables
   include_vars: "{{ item }}"
