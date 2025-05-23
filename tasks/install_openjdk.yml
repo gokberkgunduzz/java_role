@@ -8,7 +8,7 @@
 - name: Java | Gather OS specific variables
   include_vars: "{{ item }}"
   with_first_found:
-    - "{{ java_jdk_vendor }}/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int }}.yml"
+    - "{{ java_jdk_vendor }}/{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml"
 
 - name: Java | Gather architecture specific variables
   include_vars: "{{ item }}"
